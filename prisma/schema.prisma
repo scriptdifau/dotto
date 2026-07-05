@@ -13,8 +13,11 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  // Connessione usata a runtime (può essere "in pool" su Vercel/Neon).
+  url       = env("DATABASE_URL")
+  // Connessione diretta usata dalle migrazioni. In locale coincide con url.
+  directUrl = env("DIRECT_URL")
 }
 
 // Operatori del pannello (parcheggiatori e amministratori).
