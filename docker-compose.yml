@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: dotto-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: dotto
+      POSTGRES_PASSWORD: dotto
+      POSTGRES_DB: dotto
+    ports:
+      - "5432:5432"
+    volumes:
+      - dotto-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dotto -d dotto"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  dotto-pgdata:

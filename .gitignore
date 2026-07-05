@@ -1,0 +1,23 @@
+/node_modules
+/.next
+/out
+/build
+*.log
+npm-debug.log*
+
+# env
+.env
+.env*.local
+
+# prisma — ignora eventuali db locali; le migrazioni vanno versionate!
+/prisma/*.db
+/prisma/*.db-journal
+
+# misc
+.DS_Store
+*.pem
+next-env.d.ts
+/.vercel
+
+# impostazioni locali dei tool (personali, non da condividere)
+.claude/settings.local.json

@@ -1,0 +1,68 @@
+// Schema Prisma per Dotto.
+//
+// Provider PostgreSQL in tutti gli ambienti (parità dev/prod):
+//   - in locale: Postgres via Docker (vedi docker-compose.yml)
+//   - in produzione: Vercel Postgres / Neon / Supabase
+//
+// Workflow migrazioni:
+//   - sviluppo:   npm run db:migrate  (crea/applica una migrazione)
+//   - produzione: npm run db:deploy   (applica le migrazioni esistenti)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Operatori del pannello (parcheggiatori e amministratori).
+//   ADMIN    -> può gestire eventi e operatori
+//   OPERATOR -> può vedere statistiche e usare lo scanner
+model Operator {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         String   @default("OPERATOR")
+  createdAt    DateTime @default(now())
+}
+
+model Event {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  name        String
+  location    String
+  startsAt    DateTime
+  endsAt      DateTime?
+  totalSlots  Int       @default(50)
+  description String?
+  active      Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+
+  bookings Booking[]
+}
+
+// Stati di una prenotazione:
+//   BOOKED       -> slot prenotato, bici non ancora consegnata
+//   CHECKED_IN   -> bici consegnata e legata dal parcheggiatore
+//   CHECKED_OUT  -> bici riconsegnata al proprietario
+//   CANCELLED    -> prenotazione annullata
+model Booking {
+  id           String    @id @default(cuid())
+  event        Event     @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  eventId      String
+  token        String    @unique
+  name         String
+  email        String
+  phone        String?
+  status       String    @default("BOOKED")
+  slotNumber   Int?
+  createdAt    DateTime  @default(now())
+  checkedInAt  DateTime?
+  checkedOutAt DateTime?
+
+  @@index([eventId])
+  @@index([status])
+}

@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-dotto-cream text-dotto-ink antialiased;
+}
+
+/* Utility per il "grana"/tratto disegnato a mano nelle illustrazioni */
+.stroke-hand {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-dotto-blue px-6 py-3 font-semibold text-white shadow-soft transition hover:bg-dotto-blue-dark active:scale-95 disabled:opacity-60;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-dotto-ink/15 px-6 py-3 font-semibold text-dotto-ink transition hover:border-dotto-ink/40;
+  }
+  .field {
+    @apply w-full rounded-2xl border-2 border-dotto-ink/10 bg-white px-4 py-3 text-dotto-ink outline-none transition focus:border-dotto-blue;
+  }
+  .label {
+    @apply mb-1 block text-sm font-semibold text-dotto-ink/80;
+  }
+}
