@@ -18,19 +18,17 @@ export default function PrivacyPage() {
         Ai sensi del Regolamento (UE) 2016/679 (GDPR).
       </p>
 
-      <div className="mt-6 rounded-2xl border-2 border-dotto-sun/60 bg-dotto-sun/10 p-4 text-sm text-dotto-ink/80">
-        <strong>Nota per il titolare:</strong> completa i campi tra parentesi quadre
-        <code> [DA COMPLETARE] </code> con i dati reali (ragione sociale, indirizzo,
-        email di contatto) prima della pubblicazione ufficiale.
-      </div>
-
       <section className="prose-dotto mt-8 space-y-6 text-dotto-ink/80">
         <div>
           <h2 className="text-lg font-extrabold text-dotto-ink">Titolare del trattamento</h2>
           <p>
-            Il titolare del trattamento è <strong>[DA COMPLETARE: ragione sociale / nome]</strong>,
-            con sede in <strong>[DA COMPLETARE: indirizzo]</strong>. Per qualsiasi
-            richiesta puoi scrivere a <strong>[DA COMPLETARE: email di contatto]</strong>.
+            Il titolare del trattamento è l&apos;<strong>Associazione Scintilla cicloprogetti A.P.S.</strong>{" "}
+            (C.F. 97971420159), con sede in <strong>via Sismondi 4, 20133 Milano</strong>. Per qualsiasi
+            richiesta puoi scrivere a{" "}
+            <a href="mailto:info@scintillacicloprogetti.it" className="font-semibold text-dotto-blue underline">
+              info@scintillacicloprogetti.it
+            </a>
+            .
           </p>
         </div>
 
@@ -38,7 +36,7 @@ export default function PrivacyPage() {
           <h2 className="text-lg font-extrabold text-dotto-ink">Quali dati raccogliamo</h2>
           <p>
             Quando prenoti un posto per la tua bici raccogliamo: <strong>nome e cognome</strong>,
-            <strong> indirizzo email</strong> e, se lo fornisci, il <strong>numero di telefono</strong>
+            <strong> indirizzo email</strong> e, se lo fornisci, il <strong>numero di telefono</strong>{" "}
             (facoltativo). Generiamo inoltre un codice identificativo della prenotazione (QR).
           </p>
         </div>
@@ -56,7 +54,7 @@ export default function PrivacyPage() {
           <h2 className="text-lg font-extrabold text-dotto-ink">Base giuridica</h2>
           <p>
             Il trattamento si fonda sul tuo <strong>consenso</strong> (art. 6.1.a GDPR), che
-            presti spuntando l&apos;apposita casella, e sull&apos;<strong>esecuzione del servizio</strong>
+            presti spuntando l&apos;apposita casella, e sull&apos;<strong>esecuzione del servizio</strong>{" "}
             da te richiesto (art. 6.1.b GDPR).
           </p>
         </div>
@@ -65,8 +63,9 @@ export default function PrivacyPage() {
           <h2 className="text-lg font-extrabold text-dotto-ink">Per quanto tempo</h2>
           <p>
             Conserviamo i dati della prenotazione per il tempo necessario a erogare il servizio
-            durante l&apos;evento e per un periodo limitato successivo per fini gestionali, dopodiché
-            vengono cancellati o resi anonimi. <strong>[DA COMPLETARE: es. entro 6 mesi]</strong>.
+            durante l&apos;evento e per un periodo limitato successivo per fini gestionali (di norma
+            <strong> entro 12 mesi</strong>), dopodiché vengono cancellati o resi anonimi, salvo
+            diversi obblighi di legge.
           </p>
         </div>
 
@@ -86,8 +85,11 @@ export default function PrivacyPage() {
             Puoi in ogni momento chiedere <strong>accesso, rettifica, cancellazione</strong>,
             limitazione o portabilità dei tuoi dati, e <strong>revocare il consenso</strong>.
             Hai inoltre diritto di proporre reclamo al <strong>Garante per la protezione dei dati
-            personali</strong>. Per esercitare i tuoi diritti scrivi a
-            <strong> [DA COMPLETARE: email di contatto]</strong>.
+            personali</strong>. Per esercitare i tuoi diritti scrivi a{" "}
+            <a href="mailto:info@scintillacicloprogetti.it" className="font-semibold text-dotto-blue underline">
+              info@scintillacicloprogetti.it
+            </a>
+            .
           </p>
         </div>
 

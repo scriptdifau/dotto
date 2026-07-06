@@ -107,44 +107,21 @@ export function IlloPickup({ className }: IlloProps) {
   );
 }
 
-// Marchio Dotto: cerchio blu con bici stilizzata (ruote = "oo") + wordmark.
+// Marchio ufficiale Dottò (logo circolare reale).
 export function BikeBadge({ className }: IlloProps) {
   return (
     <svg viewBox="0 0 100 100" className={className} role="img" aria-label="Dottò">
-      <circle cx="50" cy="50" r="48" fill={BLUE} />
-      <circle cx="50" cy="50" r="48" fill="none" stroke="#fff" strokeWidth="3" opacity="0.7" />
-      {/* ruote (le due "o") */}
-      <circle cx="32" cy="52" r="13" fill="none" stroke={NAVY} strokeWidth="5" />
-      <circle cx="68" cy="52" r="13" fill="none" stroke={NAVY} strokeWidth="5" />
-      {/* corpo del ciclista / telaio, bianco */}
-      <path
-        d="M32 52 L48 52 L58 34 M45 52 L68 52 M58 34 L46 34"
-        fill="none"
-        stroke="#fff"
-        strokeWidth="5"
-        className="stroke-hand"
-      />
-      <circle cx="59" cy="27" r="4.5" fill="#fff" />
-      {/* wordmark */}
-      <text x="50" y="82" textAnchor="middle" fontFamily="var(--font-sans)" fontWeight="800" fontSize="16" fontStyle="italic" fill="#fff">
-        dottò
-      </text>
+      <image href="/logo.png" x="0" y="0" width="100" height="100" />
     </svg>
   );
 }
 
-// Lockup orizzontale per header/footer: badge + testo.
+// Lockup orizzontale per header/footer: logo ufficiale + wordmark.
 export function LogoMark({ className }: IlloProps) {
   return (
     <svg viewBox="0 0 150 40" className={className} role="img" aria-label="Dottò">
-      <g transform="translate(2 2)">
-        <circle cx="18" cy="18" r="18" fill={BLUE} />
-        <circle cx="12" cy="20" r="6" fill="none" stroke={NAVY} strokeWidth="2.5" />
-        <circle cx="26" cy="20" r="6" fill="none" stroke={NAVY} strokeWidth="2.5" />
-        <path d="M12 20 L19 20 L23 12 M18 20 L26 20 M23 12 L18 12" fill="none" stroke="#fff" strokeWidth="2.5" className="stroke-hand" />
-        <circle cx="23.5" cy="9" r="2.2" fill="#fff" />
-      </g>
-      <text x="46" y="27" fontFamily="var(--font-sans)" fontWeight="800" fontSize="24" fill={INK}>
+      <image href="/logo.png" x="0" y="0" width="40" height="40" />
+      <text x="48" y="27" fontFamily="var(--font-sans)" fontWeight="800" fontSize="24" fill={INK}>
         Dottò
       </text>
     </svg>
