@@ -31,6 +31,8 @@ export default function BookingForm({ eventSlug, embedded }: Props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [privacy, setPrivacy] = useState(false);
+  const [azienda, setAzienda] = useState(""); // honeypot anti-bot
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<Result | null>(null);
@@ -57,7 +59,7 @@ export default function BookingForm({ eventSlug, embedded }: Props) {
       const res = await fetch("/api/bookings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ eventSlug: selected, name, email, phone }),
+        body: JSON.stringify({ eventSlug: selected, name, email, phone, privacy, azienda }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Errore nella prenotazione.");
@@ -97,6 +99,7 @@ export default function BookingForm({ eventSlug, embedded }: Props) {
             setName("");
             setEmail("");
             setPhone("");
+            setPrivacy(false);
           }}
           className="mt-3 text-sm font-semibold text-dotto-blue underline"
         >
@@ -159,9 +162,40 @@ export default function BookingForm({ eventSlug, embedded }: Props) {
         <input id="phone" className="field" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+39 333 1234567" />
       </div>
 
+      {/* Honeypot anti-bot: nascosto agli utenti, i bot lo compilano. */}
+      <div aria-hidden className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden" style={{ opacity: 0 }}>
+        <label>
+          Azienda (non compilare)
+          <input
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+            value={azienda}
+            onChange={(e) => setAzienda(e.target.value)}
+          />
+        </label>
+      </div>
+
+      <label className="mb-4 flex items-start gap-2 text-sm text-dotto-ink/80">
+        <input
+          type="checkbox"
+          className="mt-0.5 h-4 w-4 shrink-0"
+          checked={privacy}
+          onChange={(e) => setPrivacy(e.target.checked)}
+          required
+        />
+        <span>
+          Ho letto e accetto l&apos;
+          <a href="/privacy" target="_blank" rel="noreferrer" className="font-semibold text-dotto-blue underline">
+            informativa privacy
+          </a>
+          .
+        </span>
+      </label>
+
       {error && <p className="mb-3 text-sm font-semibold text-red-600">{error}</p>}
 
-      <button type="submit" className="btn-primary w-full" disabled={loading || !current || current.slotsLeft <= 0}>
+      <button type="submit" className="btn-primary w-full" disabled={loading || !current || current.slotsLeft <= 0 || !privacy}>
         {loading ? "Prenotazione…" : "Prenota gratis"}
       </button>
       <p className="mt-3 text-center text-xs text-dotto-ink/50">

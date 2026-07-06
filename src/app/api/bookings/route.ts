@@ -3,12 +3,27 @@ import { prisma } from "@/lib/db";
 import { newBookingToken, bookingUrl } from "@/lib/qr";
 import { sendBookingEmail } from "@/lib/email";
 
-// POST /api/bookings  { eventSlug, name, email, phone? }
+// Finestra anti doppio-invio/spam: stessa email+evento entro N secondi.
+const THROTTLE_SECONDS = 15;
+
+// POST /api/bookings  { eventSlug, name, email, phone?, privacy, azienda? }
 export async function POST(req: Request) {
-  let body: { eventSlug?: string; name?: string; email?: string; phone?: string };
+  let body: {
+    eventSlug?: string;
+    name?: string;
+    email?: string;
+    phone?: string;
+    privacy?: boolean;
+    azienda?: string; // honeypot: deve restare vuoto
+  };
   try {
     body = await req.json();
   } catch {
+    return NextResponse.json({ error: "Richiesta non valida." }, { status: 400 });
+  }
+
+  // Honeypot: se è compilato, è un bot. Rispondiamo generico.
+  if (body.azienda && body.azienda.trim() !== "") {
     return NextResponse.json({ error: "Richiesta non valida." }, { status: 400 });
   }
 
@@ -26,9 +41,32 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Email non valida." }, { status: 400 });
   }
 
+  // Consenso privacy obbligatorio (GDPR).
+  if (body.privacy !== true) {
+    return NextResponse.json(
+      { error: "Devi accettare l'informativa privacy per prenotare." },
+      { status: 400 }
+    );
+  }
+
   const event = await prisma.event.findUnique({ where: { slug: eventSlug } });
   if (!event || !event.active) {
     return NextResponse.json({ error: "Evento non disponibile." }, { status: 404 });
+  }
+
+  // Throttle: evita doppi invii ravvicinati per la stessa email/evento.
+  const recent = await prisma.booking.count({
+    where: {
+      eventId: event.id,
+      email: email.trim().toLowerCase(),
+      createdAt: { gt: new Date(Date.now() - THROTTLE_SECONDS * 1000) },
+    },
+  });
+  if (recent > 0) {
+    return NextResponse.json(
+      { error: "Hai appena inviato una richiesta. Attendi qualche secondo." },
+      { status: 429 }
+    );
   }
 
   // Calcola capienza e assegna il numero di slot in modo atomico.

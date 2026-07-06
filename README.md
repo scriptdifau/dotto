@@ -142,3 +142,8 @@ dominio del mittente e genera una API key.
   browser non supportati (es. iOS Safari) c'è l'inserimento manuale del codice.
 - **Capienza**: l'assegnazione dello slot e il controllo posti avvengono in
   transazione, per evitare overbooking.
+- **Privacy/GDPR**: pagina `/privacy` (informativa) e checkbox di consenso
+  obbligatoria nel form. ⚠️ Completa i campi `[DA COMPLETARE]` in
+  `src/app/privacy/page.tsx` con i dati reali del titolare prima del lancio.
+- **Anti-spam**: campo honeypot nascosto (blocca i bot) e throttle di 15s per
+  stessa email/evento (blocca doppi invii), senza servizi esterni.

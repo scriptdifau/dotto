@@ -23,6 +23,10 @@ export default function Home() {
         </p>
         <p className="mt-2 text-xs text-dotto-ink/40">
           © {new Date().getFullYear()} Dottò ·{" "}
+          <a href="/privacy" className="underline">
+            Privacy
+          </a>{" "}
+          ·{" "}
           <a href="/admin" className="underline">
             Area operatori
           </a>
