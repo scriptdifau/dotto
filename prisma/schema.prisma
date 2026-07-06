@@ -68,6 +68,8 @@ model Booking {
   // Prova del consenso privacy (GDPR art. 7): quando e quale versione.
   consentAt      DateTime?
   privacyVersion String?
+  // Quando i dati personali sono stati resi anonimi (retention 12 mesi).
+  anonymizedAt   DateTime?
 
   @@index([eventId])
   @@index([status])
