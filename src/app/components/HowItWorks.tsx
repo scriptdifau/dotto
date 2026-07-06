@@ -21,8 +21,8 @@ const steps = [
   },
   {
     n: 3,
-    title: "La tua bici è legata",
-    text: "Il parcheggiatore lega e prende in custodia la bici. Tu sei libero di entrare.",
+    title: "La tua bici è al sicuro",
+    text: "Il valletto sistema la bici sulle rastrelliere e la prende in custodia. Tu sei libero di entrare.",
     Illo: IlloLock,
   },
   {

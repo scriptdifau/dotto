@@ -1,6 +1,7 @@
 import Hero from "./components/Hero";
 import HowItWorks from "./components/HowItWorks";
 import Gallery from "./components/Gallery";
+import Values from "./components/Values";
 import BookingForm from "./components/BookingForm";
 import About from "./components/About";
 import { LogoMark } from "./components/Illustrations";
@@ -11,6 +12,7 @@ export default function Home() {
       <Hero />
       <HowItWorks />
       <Gallery />
+      <Values />
 
       <section id="prenota" className="mx-auto max-w-md px-5 py-12 lg:max-w-5xl lg:py-20">
         <div className="lg:grid lg:grid-cols-2 lg:items-center lg:gap-12">
@@ -46,10 +48,16 @@ export default function Home() {
         <div className="lg:flex lg:items-center lg:gap-3">
           <LogoMark className="mx-auto h-7 opacity-80 lg:mx-0" />
           <p className="mt-3 text-sm text-dotto-ink/60 lg:mt-0">
-            Parcheggio bici gratuito per eventi.
+            Parcheggio bici gratuito e custodito per eventi.
           </p>
         </div>
         <p className="mt-2 text-xs text-dotto-ink/40 lg:mt-0">
+          Un progetto di{" "}
+          <a href="https://www.scintillacicloprogetti.it" target="_blank" rel="noreferrer" className="underline">
+            Scintilla cicloprogetti APS
+          </a>
+          <br className="lg:hidden" />
+          <span className="hidden lg:inline"> · </span>
           © {new Date().getFullYear()} Dottò ·{" "}
           <a href="/privacy" className="underline">
             Privacy

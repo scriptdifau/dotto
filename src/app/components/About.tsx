@@ -6,20 +6,20 @@ export default function About() {
           <div>
             <h2 className="text-3xl font-extrabold text-white lg:text-4xl">Chi siamo</h2>
             <p className="mt-4 text-dotto-cream/90 lg:text-lg">
-              Dottò nasce da un&apos;idea semplice: andare in bici a un concerto, a una
-              fiera o a una festa non dovrebbe voler dire cercare un palo libero e
-              sperare di ritrovare la propria bici.
+              Dottò è un progetto dell&apos;<strong>Associazione Scintilla cicloprogetti APS</strong>:
+              portiamo il parcheggio bici <strong>custodito</strong> dove prima non c&apos;era —
+              a concerti, festival, mostre e fiere.
             </p>
             <p className="mt-3 text-dotto-cream/90 lg:text-lg">
-              Siamo un piccolo gruppo di appassionati di bici e di eventi. Portiamo
-              il nostro <strong>parcheggio custodito</strong> dove serve, lo
-              rendiamo <strong>gratuito</strong> per chi pedala e lo gestiamo con un
-              QR code, così non serve nessun documento o modulo cartaceo.
+              Il servizio è affidato ai <strong>valletti di una cooperativa sociale</strong>:
+              accolgono la tua bici, la sistemano sulle <strong>rastrelliere mobili</strong>{" "}
+              (fino a 12 bici ciascuna) in un&apos;area dedicata e sorvegliata, e te la
+              riconsegnano. Tutto <strong>gratuito</strong> e a zero emissioni.
             </p>
             <p className="mt-3 text-dotto-cream/90 lg:text-lg">
-              Più biciclette parcheggiate bene significano più spazio, meno auto e
-              città più vivibili. È il nostro piccolo puntino blu — il
-              <em> Dottò</em> — nella giornata di chi organizza e di chi partecipa.
+              A seconda dell&apos;evento offriamo la formula <strong>Valet</strong> — prendiamo
+              noi in custodia la bici — o <strong>Half-Valet</strong>, dove la leghi tu alle
+              rastrelliere. In entrambi i casi tu pedali, al resto pensiamo noi.
             </p>
           </div>
 
@@ -29,12 +29,12 @@ export default function About() {
               <dd className="text-xs text-dotto-cream/80 lg:text-sm">gratuito</dd>
             </div>
             <div className="rounded-2xl bg-white/10 p-3 lg:p-5">
-              <dt className="text-2xl font-extrabold text-dotto-sky lg:text-4xl">1</dt>
-              <dd className="text-xs text-dotto-cream/80 lg:text-sm">QR per tutto</dd>
+              <dt className="text-2xl font-extrabold text-dotto-sky lg:text-4xl">0</dt>
+              <dd className="text-xs text-dotto-cream/80 lg:text-sm">emissioni</dd>
             </div>
             <div className="rounded-2xl bg-white/10 p-3 lg:p-5">
-              <dt className="text-2xl font-extrabold text-dotto-sky lg:text-4xl">0</dt>
-              <dd className="text-xs text-dotto-cream/80 lg:text-sm">pensieri</dd>
+              <dt className="text-2xl font-extrabold text-dotto-sky lg:text-4xl">12</dt>
+              <dd className="text-xs text-dotto-cream/80 lg:text-sm">bici per rastrelliera</dd>
             </div>
           </dl>
         </div>
