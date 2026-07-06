@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/db";
+import { baseUrl } from "@/lib/qr";
 import AdminNav from "./components/AdminNav";
 
 export const dynamic = "force-dynamic";
@@ -28,7 +29,7 @@ export default async function AdminDashboard() {
     pending: all.filter((b) => b.status === "BOOKED").length,
   };
 
-  const base = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+  const base = baseUrl();
 
   return (
     <div className="min-h-screen">

@@ -16,8 +16,18 @@ export async function qrDataUrl(text: string): Promise<string> {
   });
 }
 
+// URL pubblico di base del sito.
+// Priorità: variabile esplicita → dominio di produzione fornito da Vercel → locale.
+// Così in produzione i QR puntano al dominio giusto anche senza configurazione.
+export function baseUrl(): string {
+  if (process.env.NEXT_PUBLIC_BASE_URL) return process.env.NEXT_PUBLIC_BASE_URL;
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+  }
+  return "http://localhost:3000";
+}
+
 // URL che il parcheggiatore apre / scansiona per una prenotazione.
 export function bookingUrl(token: string): string {
-  const base = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-  return `${base}/booking/${token}`;
+  return `${baseUrl()}/booking/${token}`;
 }
