@@ -2,6 +2,10 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { newBookingToken, bookingUrl } from "@/lib/qr";
 import { sendBookingEmail } from "@/lib/email";
+import { PRIVACY_VERSION } from "@/lib/privacy";
+
+// Elabora le prenotazioni in UE (Francoforte): niente dati personali fuori dall'UE.
+export const preferredRegion = "fra1";
 
 // Finestra anti doppio-invio/spam: stessa email+evento entro N secondi.
 const THROTTLE_SECONDS = 15;
@@ -87,6 +91,8 @@ export async function POST(req: Request) {
           phone: phone?.trim() || null,
           slotNumber: active + 1,
           status: "BOOKED",
+          consentAt: new Date(),
+          privacyVersion: PRIVACY_VERSION,
         },
       });
     });

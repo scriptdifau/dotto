@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { LogoMark } from "@/app/components/Illustrations";
+import { PRIVACY_VERSION } from "@/lib/privacy";
 
 export const metadata: Metadata = {
   title: "Informativa privacy — Dottò",
@@ -15,7 +16,8 @@ export default function PrivacyPage() {
 
       <h1 className="mt-6 text-3xl font-extrabold">Informativa privacy</h1>
       <p className="mt-1 text-sm text-dotto-ink/60">
-        Ai sensi del Regolamento (UE) 2016/679 (GDPR).
+        Ai sensi del Regolamento (UE) 2016/679 (GDPR). Versione del{" "}
+        {new Date(PRIVACY_VERSION).toLocaleDateString("it-IT", { dateStyle: "long" })}.
       </p>
 
       <section className="prose-dotto mt-8 space-y-6 text-dotto-ink/80">
@@ -72,10 +74,24 @@ export default function PrivacyPage() {
         <div>
           <h2 className="text-lg font-extrabold text-dotto-ink">A chi comunichiamo i dati</h2>
           <p>
-            I dati non vengono venduti né ceduti a terzi per finalità commerciali. Sono trattati
-            da fornitori tecnici che agiscono come responsabili del trattamento, tra cui i servizi
-            di <strong>hosting e database</strong> e, se attivo, il servizio di <strong>invio email</strong>.
-            Questi fornitori possono operare su infrastrutture situate nell&apos;Unione Europea.
+            I dati non vengono venduti né ceduti a terzi per finalità commerciali. Sono trattati,
+            come responsabili del trattamento, dai seguenti fornitori tecnici:
+          </p>
+          <ul className="mt-2 list-disc space-y-1 pl-5">
+            <li><strong>Vercel Inc.</strong> — hosting del sito. Le funzioni che elaborano le prenotazioni sono configurate nella regione <strong>UE (Francoforte)</strong>.</li>
+            <li><strong>Neon</strong> — database, con server situati nell&apos;<strong>Unione Europea (Francoforte)</strong>.</li>
+            <li><strong>Resend</strong> — invio dell&apos;email di conferma (quando attivo).</li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 className="text-lg font-extrabold text-dotto-ink">Trasferimenti fuori dall&apos;UE</h2>
+          <p>
+            Alcuni fornitori sono società con sede negli Stati Uniti (es. Vercel e Resend).
+            Eventuali trasferimenti di dati al di fuori dell&apos;Unione Europea avvengono nel
+            rispetto del GDPR, sulla base di <strong>clausole contrattuali standard</strong> e/o
+            del <strong>Data Privacy Framework UE-USA</strong>. Il database che conserva i dati
+            resta comunque all&apos;interno dell&apos;Unione Europea.
           </p>
         </div>
 
