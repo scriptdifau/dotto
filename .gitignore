@@ -21,3 +21,6 @@ next-env.d.ts
 
 # impostazioni locali dei tool (personali, non da condividere)
 .claude/settings.local.json
+
+# materiale sorgente pesante (presentazioni, originali): non serve nel deploy
+/assets-da-fausto/

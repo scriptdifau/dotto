@@ -1,5 +1,6 @@
 import Hero from "./components/Hero";
 import HowItWorks from "./components/HowItWorks";
+import Gallery from "./components/Gallery";
 import BookingForm from "./components/BookingForm";
 import About from "./components/About";
 import { LogoMark } from "./components/Illustrations";
@@ -9,6 +10,7 @@ export default function Home() {
     <main className="min-h-screen">
       <Hero />
       <HowItWorks />
+      <Gallery />
 
       <section id="prenota" className="mx-auto max-w-md px-5 py-12 lg:max-w-5xl lg:py-20">
         <div className="lg:grid lg:grid-cols-2 lg:items-center lg:gap-12">

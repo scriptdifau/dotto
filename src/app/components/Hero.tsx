@@ -1,4 +1,4 @@
-import { LogoMark, IlloShowQr, IlloLock, BikeBadge } from "./Illustrations";
+import { LogoMark, BikeBadge } from "./Illustrations";
 
 export default function Hero() {
   return (
@@ -40,18 +40,21 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Scena illustrata: solo desktop, per non appesantire il mobile */}
-        <div className="hidden lg:block">
-          <div className="relative mx-auto aspect-square w-full max-w-md">
-            <div className="absolute inset-0 rotate-3 rounded-[2.5rem] bg-gradient-to-br from-dotto-blue to-dotto-blue-dark shadow-soft" />
-            <div className="absolute inset-6 flex items-center justify-center rounded-[2rem] bg-white/95">
-              <IlloShowQr className="h-56 w-56" />
+        {/* Foto reale del servizio */}
+        <div className="mt-10 lg:mt-0">
+          <div className="relative mx-auto w-full max-w-md lg:max-w-none">
+            <div className="overflow-hidden rounded-[2rem] shadow-soft ring-1 ring-dotto-ink/5">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/foto/hero.jpg"
+                alt="Il parcheggio bici Dottò a un evento: biciclette custodite sulle rastrelliere mobili"
+                width={1280}
+                height={720}
+                className="h-full w-full object-cover"
+              />
             </div>
-            <div className="absolute -right-5 -top-5 rounded-3xl bg-white p-2 shadow-soft">
-              <BikeBadge className="h-20 w-20" />
-            </div>
-            <div className="absolute -bottom-6 -left-6 rounded-3xl bg-white p-3 shadow-soft">
-              <IlloLock className="h-20 w-20" />
+            <div className="absolute -right-4 -top-4 rounded-3xl bg-white p-2 shadow-soft sm:-right-5 sm:-top-5">
+              <BikeBadge className="h-16 w-16 sm:h-20 sm:w-20" />
             </div>
           </div>
         </div>
