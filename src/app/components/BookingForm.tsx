@@ -32,6 +32,7 @@ export default function BookingForm({ eventSlug, embedded }: Props) {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [privacy, setPrivacy] = useState(false);
+  const [marketing, setMarketing] = useState(false);
   const [azienda, setAzienda] = useState(""); // honeypot anti-bot
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -59,7 +60,7 @@ export default function BookingForm({ eventSlug, embedded }: Props) {
       const res = await fetch("/api/bookings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ eventSlug: selected, name, email, phone, privacy, azienda }),
+        body: JSON.stringify({ eventSlug: selected, name, email, phone, privacy, marketing, azienda }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Errore nella prenotazione.");
@@ -100,6 +101,7 @@ export default function BookingForm({ eventSlug, embedded }: Props) {
             setEmail("");
             setPhone("");
             setPrivacy(false);
+            setMarketing(false);
           }}
           className="mt-3 text-sm font-semibold text-dotto-blue underline"
         >
@@ -190,6 +192,19 @@ export default function BookingForm({ eventSlug, embedded }: Props) {
             informativa privacy
           </a>
           .
+        </span>
+      </label>
+
+      <label className="mb-4 flex items-start gap-2 text-sm text-dotto-ink/70">
+        <input
+          type="checkbox"
+          className="mt-0.5 h-4 w-4 shrink-0"
+          checked={marketing}
+          onChange={(e) => setMarketing(e.target.checked)}
+        />
+        <span>
+          Vorrei essere ricontattato/a per iniziative simili di Dottò.{" "}
+          <span className="text-dotto-ink/50">(facoltativo)</span>
         </span>
       </label>
 

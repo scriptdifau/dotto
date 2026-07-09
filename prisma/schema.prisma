@@ -70,6 +70,9 @@ model Booking {
   privacyVersion String?
   // Quando i dati personali sono stati resi anonimi (retention 12 mesi).
   anonymizedAt   DateTime?
+  // Consenso facoltativo a essere ricontattato per iniziative simili (marketing).
+  // Valorizzato = consenso dato in quel momento; null = nessun consenso.
+  marketingConsentAt DateTime?
 
   @@index([eventId])
   @@index([status])

@@ -62,6 +62,21 @@ export default function PrivacyPage() {
         </div>
 
         <div>
+          <h2 className="text-lg font-extrabold text-dotto-ink">Comunicazioni su iniziative simili</h2>
+          <p>
+            Se lo desideri, puoi spuntare la <strong>casella facoltativa</strong> nel modulo di
+            prenotazione per essere <strong>ricontattato/a in merito a iniziative simili</strong> di
+            Dottò. Questo trattamento si basa sul tuo <strong>consenso</strong> (art. 6.1.a GDPR), è
+            del tutto <strong>facoltativo</strong> e non incide sulla prenotazione. Puoi
+            <strong> revocarlo in qualsiasi momento</strong> scrivendo a{" "}
+            <a href="mailto:info@scintillacicloprogetti.it" className="font-semibold text-dotto-blue underline">
+              info@scintillacicloprogetti.it
+            </a>
+            .
+          </p>
+        </div>
+
+        <div>
           <h2 className="text-lg font-extrabold text-dotto-ink">Per quanto tempo</h2>
           <p>
             Conserviamo i dati della prenotazione per il tempo necessario a erogare il servizio

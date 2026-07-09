@@ -18,6 +18,7 @@ export async function POST(req: Request) {
     email?: string;
     phone?: string;
     privacy?: boolean;
+    marketing?: boolean; // consenso facoltativo a ricontatto
     azienda?: string; // honeypot: deve restare vuoto
   };
   try {
@@ -93,6 +94,7 @@ export async function POST(req: Request) {
           status: "BOOKED",
           consentAt: new Date(),
           privacyVersion: PRIVACY_VERSION,
+          marketingConsentAt: body.marketing === true ? new Date() : null,
         },
       });
     });
