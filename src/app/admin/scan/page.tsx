@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import jsQR from "jsqr";
 import AdminNav from "../components/AdminNav";
 
 type ScanResult = {
@@ -24,6 +25,7 @@ const STATUS_IT: Record<string, string> = {
 
 export default function ScanPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const scanningRef = useRef(false);
   const [scanning, setScanning] = useState(false);
@@ -35,8 +37,11 @@ export default function ScanPage() {
   const lastToken = useRef<string>("");
 
   useEffect(() => {
-    // BarcodeDetector è disponibile su Chrome/Android. Altrove: inserimento manuale.
-    setSupported(typeof window !== "undefined" && "BarcodeDetector" in window);
+    // La scansione via jsQR funziona su tutti i browser che danno accesso alla
+    // fotocamera (getUserMedia), iPhone/Safari inclusi (richiede HTTPS).
+    setSupported(
+      typeof navigator !== "undefined" && !!navigator.mediaDevices?.getUserMedia
+    );
     return () => stopCamera();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -77,34 +82,45 @@ export default function ScanPage() {
       streamRef.current = stream;
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
+        videoRef.current.setAttribute("playsinline", "true");
         await videoRef.current.play();
       }
       scanningRef.current = true;
       setScanning(true);
       loopDetect();
     } catch {
-      setSupported(false);
-      setResult({ error: "Fotocamera non accessibile. Usa l'inserimento manuale." });
+      setResult({
+        error:
+          "Impossibile accedere alla fotocamera. Controlla i permessi del browser oppure usa l'inserimento manuale qui sotto.",
+      });
     }
   }
 
-  async function loopDetect() {
-    // @ts-expect-error BarcodeDetector non è ancora nei tipi standard
-    const detector = new window.BarcodeDetector({ formats: ["qr_code"] });
-    const tick = async () => {
-      if (!scanningRef.current || !videoRef.current) return;
-      try {
-        const codes = await detector.detect(videoRef.current);
-        if (codes.length > 0) {
-          const value = codes[0].rawValue as string;
-          if (value && value !== lastToken.current) {
-            lastToken.current = value;
-            await sendToken(value);
-            setTimeout(() => (lastToken.current = ""), 2500);
-          }
+  // Decodifica i frame della fotocamera con jsQR (compatibile con tutti i browser).
+  function loopDetect() {
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
+    if (!video || !canvas) return;
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
+    if (!ctx) return;
+
+    const tick = () => {
+      if (!scanningRef.current || !video) return;
+      if (video.readyState >= 2 && video.videoWidth > 0) {
+        // Riduci la risoluzione per prestazioni migliori sui telefoni.
+        const scale = Math.min(1, 640 / video.videoWidth);
+        canvas.width = Math.round(video.videoWidth * scale);
+        canvas.height = Math.round(video.videoHeight * scale);
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const code = jsQR(img.data, img.width, img.height, {
+          inversionAttempts: "dontInvert",
+        });
+        if (code?.data && code.data !== lastToken.current) {
+          lastToken.current = code.data;
+          sendToken(code.data);
+          setTimeout(() => (lastToken.current = ""), 2500);
         }
-      } catch {
-        /* ignora frame non validi */
       }
       if (scanningRef.current) requestAnimationFrame(tick);
     };
@@ -131,6 +147,12 @@ export default function ScanPage() {
             muted
           />
         </div>
+        <canvas ref={canvasRef} className="hidden" />
+        {scanning && (
+          <p className="mt-2 text-center text-xs text-dotto-ink/50">
+            Inquadra il QR e tienilo fermo un istante…
+          </p>
+        )}
 
         <div className="mt-4 flex gap-2">
           {!scanning ? (
@@ -145,8 +167,8 @@ export default function ScanPage() {
         </div>
         {!supported && (
           <p className="mt-2 text-xs text-dotto-ink/60">
-            Il tuo browser non supporta la scansione automatica. Inserisci il codice a mano qui sotto
-            (lo trovi nell&apos;URL del QR: la parte dopo <code>/booking/</code>).
+            Questo browser non dà accesso alla fotocamera (serve una connessione sicura HTTPS).
+            Usa l&apos;inserimento manuale qui sotto (il codice è la parte dopo <code>/booking/</code> nell&apos;URL del QR).
           </p>
         )}
 
