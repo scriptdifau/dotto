@@ -13,11 +13,29 @@ function Stat({ label, value, tone }: { label: string; value: number | string; t
   );
 }
 
+const STATUS: Record<string, { label: string; className: string }> = {
+  BOOKED: { label: "Prenotata", className: "bg-dotto-sky/50 text-dotto-ink" },
+  CHECKED_IN: { label: "In custodia", className: "bg-dotto-blue/15 text-dotto-blue-dark" },
+  CHECKED_OUT: { label: "Riconsegnata", className: "bg-dotto-ink/10 text-dotto-ink/60" },
+  CANCELLED: { label: "Annullata", className: "bg-red-100 text-red-700" },
+};
+
 export default async function AdminDashboard() {
   const events = await prisma.event.findMany({
     orderBy: { startsAt: "desc" },
     include: {
-      bookings: { select: { status: true, createdAt: true } },
+      bookings: {
+        orderBy: [{ slotNumber: "asc" }, { createdAt: "asc" }],
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          phone: true,
+          slotNumber: true,
+          status: true,
+          createdAt: true,
+        },
+      },
     },
   });
 
@@ -91,6 +109,52 @@ export default async function AdminDashboard() {
                     <div className="text-xs text-dotto-ink/60">riconsegnate</div>
                   </div>
                 </div>
+
+                <details className="mt-4 text-sm" open>
+                  <summary className="cursor-pointer font-semibold text-dotto-blue">
+                    Prenotati ({e.bookings.length})
+                  </summary>
+                  {e.bookings.length === 0 ? (
+                    <p className="mt-2 text-xs text-dotto-ink/50">Ancora nessuna prenotazione.</p>
+                  ) : (
+                    <div className="mt-2 overflow-x-auto">
+                      <table className="w-full text-left text-sm">
+                        <thead>
+                          <tr className="text-xs uppercase text-dotto-ink/50">
+                            <th className="py-1 pr-2 font-semibold">Slot</th>
+                            <th className="py-1 pr-2 font-semibold">Nome</th>
+                            <th className="py-1 pr-2 font-semibold">Stato</th>
+                            <th className="py-1 font-semibold">Contatto</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {e.bookings.map((b) => {
+                            const st = STATUS[b.status] ?? STATUS.BOOKED;
+                            return (
+                              <tr key={b.id} className="border-t border-dotto-ink/5 align-top">
+                                <td className="py-2 pr-2 font-semibold text-dotto-ink/70">
+                                  {b.slotNumber ? `#${b.slotNumber}` : "—"}
+                                </td>
+                                <td className="py-2 pr-2 font-semibold">{b.name}</td>
+                                <td className="py-2 pr-2">
+                                  <span className={`inline-block whitespace-nowrap rounded-full px-2 py-0.5 text-xs font-bold ${st.className}`}>
+                                    {st.label}
+                                  </span>
+                                </td>
+                                <td className="py-2 text-xs text-dotto-ink/60">
+                                  {b.email && (
+                                    <a href={`mailto:${b.email}`} className="underline">{b.email}</a>
+                                  )}
+                                  {b.phone && <div>{b.phone}</div>}
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                </details>
 
                 <details className="mt-4 text-sm">
                   <summary className="cursor-pointer font-semibold text-dotto-blue">
