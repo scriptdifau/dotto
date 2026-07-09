@@ -117,7 +117,14 @@ export default async function AdminDashboard() {
                   {e.bookings.length === 0 ? (
                     <p className="mt-2 text-xs text-dotto-ink/50">Ancora nessuna prenotazione.</p>
                   ) : (
-                    <div className="mt-2 overflow-x-auto">
+                    <div className="mt-2">
+                      <a
+                        href={`/api/admin/events/${e.id}/export`}
+                        className="mb-2 inline-flex items-center gap-1 rounded-full bg-dotto-blue px-3 py-1.5 text-xs font-bold text-white transition hover:bg-dotto-blue-dark"
+                      >
+                        ⭳ Scarica CSV (Excel)
+                      </a>
+                      <div className="overflow-x-auto">
                       <table className="w-full text-left text-sm">
                         <thead>
                           <tr className="text-xs uppercase text-dotto-ink/50">
@@ -152,6 +159,7 @@ export default async function AdminDashboard() {
                           })}
                         </tbody>
                       </table>
+                      </div>
                     </div>
                   )}
                 </details>
