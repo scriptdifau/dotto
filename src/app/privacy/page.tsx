@@ -27,6 +27,10 @@ export default function PrivacyPage() {
             Il titolare del trattamento è l&apos;<strong>Associazione Scintilla cicloprogetti A.P.S.</strong>{" "}
             (C.F. 97971420159), con sede in <strong>via Sismondi 4, 20133 Milano</strong>. Per qualsiasi
             richiesta puoi scrivere a{" "}
+            <a href="mailto:info@dottobikeparking.it" className="font-semibold text-dotto-blue underline">
+              info@dottobikeparking.it
+            </a>{" "}
+            oppure a{" "}
             <a href="mailto:info@scintillacicloprogetti.it" className="font-semibold text-dotto-blue underline">
               info@scintillacicloprogetti.it
             </a>
@@ -96,17 +100,20 @@ export default function PrivacyPage() {
             <li><strong>Vercel Inc.</strong> — hosting del sito. Le funzioni che elaborano le prenotazioni sono configurate nella regione <strong>UE (Francoforte)</strong>.</li>
             <li><strong>Neon</strong> — database, con server situati nell&apos;<strong>Unione Europea (Francoforte)</strong>.</li>
             <li><strong>Resend</strong> — invio dell&apos;email di conferma (quando attivo).</li>
+            <li><strong>ImprovMX</strong> — inoltro delle email inviate ai nostri indirizzi <code>@dottobikeparking.it</code> verso la casella di posta dell&apos;associazione.</li>
+            <li><strong>Google (Gmail)</strong> — casella di posta che riceve le email inoltrate.</li>
           </ul>
         </div>
 
         <div>
           <h2 className="text-lg font-extrabold text-dotto-ink">Trasferimenti fuori dall&apos;UE</h2>
           <p>
-            Alcuni fornitori sono società con sede negli Stati Uniti (es. Vercel e Resend).
-            Eventuali trasferimenti di dati al di fuori dell&apos;Unione Europea avvengono nel
-            rispetto del GDPR, sulla base di <strong>clausole contrattuali standard</strong> e/o
-            del <strong>Data Privacy Framework UE-USA</strong>. Il database che conserva i dati
-            resta comunque all&apos;interno dell&apos;Unione Europea.
+            Alcuni fornitori sono società con sede o infrastrutture al di fuori dell&apos;Unione
+            Europea (ad esempio Vercel, Resend e Google). Eventuali trasferimenti di dati fuori
+            dall&apos;UE avvengono nel rispetto del GDPR, sulla base di <strong>clausole
+            contrattuali standard</strong> e/o del <strong>Data Privacy Framework UE-USA</strong>.
+            Il database che conserva i dati delle prenotazioni resta comunque all&apos;interno
+            dell&apos;Unione Europea.
           </p>
         </div>
 
