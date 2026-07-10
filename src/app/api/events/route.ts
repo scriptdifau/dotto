@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { startOfTomorrow } from "@/lib/date";
 
-// GET /api/events            -> tutti gli eventi attivi
-// GET /api/events?slug=xxx   -> singolo evento
+// GET /api/events            -> eventi futuri attivi (da domani in poi)
+// GET /api/events?slug=xxx   -> singolo evento (indipendentemente dalla data,
+//                                per non rompere gli embed già condivisi)
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const slug = searchParams.get("slug");
@@ -10,7 +12,7 @@ export async function GET(req: Request) {
   const events = await prisma.event.findMany({
     where: {
       active: true,
-      ...(slug ? { slug } : {}),
+      ...(slug ? { slug } : { startsAt: { gte: startOfTomorrow() } }),
     },
     orderBy: { startsAt: "asc" },
     include: {
