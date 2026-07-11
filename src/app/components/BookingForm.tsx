@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { formatDateTimeIt } from "@/lib/date";
 
 type EventLite = {
   slug: string;
@@ -119,27 +120,50 @@ export default function BookingForm({ eventSlug, embedded }: Props) {
 
       {!eventSlug && (
         <div className="mb-4">
-          <label className="label" htmlFor="event">
-            Evento
-          </label>
-          <select
-            id="event"
-            className="field"
-            value={selected}
-            onChange={(e) => setSelected(e.target.value)}
-            required
-          >
-            {events.length === 0 && <option value="">Nessun evento disponibile</option>}
-            {events.map((e) => (
-              <option key={e.slug} value={e.slug}>
-                {e.name}
-              </option>
-            ))}
-          </select>
+          <label className="label">Evento</label>
+          {events.length === 0 ? (
+            <p className="rounded-2xl bg-dotto-cream px-4 py-3 text-sm text-dotto-ink/60">
+              Nessun evento disponibile al momento.
+            </p>
+          ) : (
+            <div className="space-y-2">
+              {events.map((e) => {
+                const isSelected = e.slug === selected;
+                const soldOut = e.slotsLeft <= 0;
+                return (
+                  <button
+                    type="button"
+                    key={e.slug}
+                    onClick={() => !soldOut && setSelected(e.slug)}
+                    disabled={soldOut}
+                    aria-pressed={isSelected}
+                    className={`w-full rounded-2xl border-2 px-4 py-3 text-left transition ${
+                      isSelected ? "border-dotto-blue bg-dotto-blue/5" : "border-dotto-ink/10 bg-white"
+                    } ${soldOut ? "cursor-not-allowed opacity-50" : "hover:border-dotto-blue/50"}`}
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <div className="font-semibold">{e.name}</div>
+                        <div className="text-sm text-dotto-ink/60">{e.location}</div>
+                        <div className="text-sm text-dotto-ink/60">{formatDateTimeIt(new Date(e.startsAt))}</div>
+                      </div>
+                      <span
+                        className={`shrink-0 whitespace-nowrap rounded-full px-2 py-0.5 text-xs font-bold ${
+                          soldOut ? "bg-dotto-ink/10 text-dotto-ink/50" : "bg-dotto-blue/10 text-dotto-blue"
+                        }`}
+                      >
+                        {soldOut ? "Esaurito" : `${e.slotsLeft}/${e.totalSlots} posti`}
+                      </span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </div>
       )}
 
-      {current && (
+      {eventSlug && current && (
         <div className="mb-4 rounded-2xl bg-dotto-cream px-4 py-3 text-sm">
           <div className="font-semibold">{current.name}</div>
           <div className="text-dotto-ink/70">{current.location}</div>
