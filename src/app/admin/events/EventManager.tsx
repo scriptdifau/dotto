@@ -98,8 +98,11 @@ function EventForm({
           <input type="datetime-local" className="field" value={v.startsAt} onChange={(e) => set("startsAt", e.target.value)} required />
         </div>
         <div>
-          <label className="label">Fine <span className="font-normal text-dotto-ink/50">(facolt.)</span></label>
-          <input type="datetime-local" className="field" value={v.endsAt} onChange={(e) => set("endsAt", e.target.value)} />
+          <label className="label">Fine</label>
+          <input type="datetime-local" className="field" value={v.endsAt} onChange={(e) => set("endsAt", e.target.value)} required />
+          <p className="mt-1 text-xs text-dotto-ink/50">
+            Il modulo di prenotazione generale si nasconde 2 ore dopo la fine.
+          </p>
         </div>
       </div>
       <div>
