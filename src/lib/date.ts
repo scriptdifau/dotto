@@ -1,6 +1,26 @@
 // Utility per calcoli di data consapevoli del fuso orario italiano.
 // Il server gira in UTC, quindi non possiamo usare Date/getDate() locali.
 
+const ROME_TZ = "Europe/Rome";
+
+// Formatta una data/ora nel fuso di Roma, indipendentemente dal fuso del
+// runtime (server in UTC, browser dell'operatore, ecc.). Gli orari degli
+// eventi sono sempre orari locali italiani: vanno mostrati come tali a
+// chiunque li legga, ovunque si trovi.
+export function formatDateTimeIt(
+  date: Date,
+  opts: Intl.DateTimeFormatOptions = { dateStyle: "medium", timeStyle: "short" }
+): string {
+  return date.toLocaleString("it-IT", { ...opts, timeZone: ROME_TZ });
+}
+
+export function formatDateIt(
+  date: Date,
+  opts: Intl.DateTimeFormatOptions = { dateStyle: "long" }
+): string {
+  return date.toLocaleDateString("it-IT", { ...opts, timeZone: ROME_TZ });
+}
+
 function timeZoneOffsetMinutes(date: Date, timeZone: string): number {
   const parts = new Intl.DateTimeFormat("en-US", {
     timeZone,

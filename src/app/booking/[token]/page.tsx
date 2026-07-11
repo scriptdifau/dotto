@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/db";
 import { qrDataUrl, bookingUrl } from "@/lib/qr";
+import { formatDateTimeIt } from "@/lib/date";
 import { LogoMark } from "@/app/components/Illustrations";
 import { notFound } from "next/navigation";
 
@@ -25,10 +26,7 @@ export default async function BookingPage({
 
   const qr = await qrDataUrl(bookingUrl(booking.token));
   const status = STATUS_LABEL[booking.status] ?? STATUS_LABEL.BOOKED;
-  const date = booking.event.startsAt.toLocaleString("it-IT", {
-    dateStyle: "long",
-    timeStyle: "short",
-  });
+  const date = formatDateTimeIt(booking.event.startsAt, { dateStyle: "long", timeStyle: "short" });
 
   return (
     <main className="mx-auto flex min-h-screen max-w-md flex-col items-center px-5 py-8">

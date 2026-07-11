@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { formatDateTimeIt } from "@/lib/date";
 
 type EventRow = {
   id: string;
@@ -259,7 +260,7 @@ export default function EventManager() {
                     </div>
                     <p className="text-sm text-dotto-ink/60">{e.location}</p>
                     <p className="text-sm text-dotto-ink/60">
-                      {new Date(e.startsAt).toLocaleString("it-IT", { dateStyle: "medium", timeStyle: "short" })}
+                      {formatDateTimeIt(new Date(e.startsAt))}
                     </p>
                     <p className="mt-1 text-sm font-semibold text-dotto-blue">
                       {e.booked}/{e.totalSlots} posti occupati · /{e.slug}

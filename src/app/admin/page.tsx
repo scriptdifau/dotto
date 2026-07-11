@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/db";
 import { baseUrl } from "@/lib/qr";
+import { formatDateTimeIt } from "@/lib/date";
 import AdminNav from "./components/AdminNav";
 
 export const dynamic = "force-dynamic";
@@ -77,7 +78,7 @@ export default async function AdminDashboard() {
                     <h3 className="text-lg font-extrabold">{e.name}</h3>
                     <p className="text-sm text-dotto-ink/60">{e.location}</p>
                     <p className="text-sm text-dotto-ink/60">
-                      {e.startsAt.toLocaleString("it-IT", { dateStyle: "medium", timeStyle: "short" })}
+                      {formatDateTimeIt(e.startsAt)}
                     </p>
                   </div>
                   <span className={`shrink-0 rounded-full px-3 py-1 text-xs font-bold ${e.active ? "bg-dotto-blue/15 text-dotto-blue-dark" : "bg-dotto-ink/10 text-dotto-ink/50"}`}>

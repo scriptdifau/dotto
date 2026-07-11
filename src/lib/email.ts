@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import QRCode from "qrcode";
 import { bookingUrl } from "./qr";
+import { formatDateTimeIt } from "./date";
 
 // Invio email di conferma prenotazione.
 //
@@ -39,10 +40,7 @@ export async function sendBookingEmail(booking: BookingLike, event: EventLike): 
       width: 320,
       color: { dark: "#17255A", light: "#FFFFFF" },
     });
-    const date = event.startsAt.toLocaleString("it-IT", {
-      dateStyle: "long",
-      timeStyle: "short",
-    });
+    const date = formatDateTimeIt(event.startsAt, { dateStyle: "long", timeStyle: "short" });
 
     await resend.emails.send({
       from,

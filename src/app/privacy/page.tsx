@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { LogoMark } from "@/app/components/Illustrations";
 import { PRIVACY_VERSION } from "@/lib/privacy";
+import { formatDateIt } from "@/lib/date";
 
 export const metadata: Metadata = {
   title: "Informativa privacy — Dottò",
@@ -17,7 +18,7 @@ export default function PrivacyPage() {
       <h1 className="mt-6 text-3xl font-extrabold">Informativa privacy</h1>
       <p className="mt-1 text-sm text-dotto-ink/60">
         Ai sensi del Regolamento (UE) 2016/679 (GDPR). Versione del{" "}
-        {new Date(PRIVACY_VERSION).toLocaleDateString("it-IT", { dateStyle: "long" })}.
+        {formatDateIt(new Date(PRIVACY_VERSION))}.
       </p>
 
       <section className="prose-dotto mt-8 space-y-6 text-dotto-ink/80">

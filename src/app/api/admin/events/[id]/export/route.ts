@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/db";
 import { isAuthenticated } from "@/lib/auth";
+import { formatDateTimeIt } from "@/lib/date";
 
 const STATUS_IT: Record<string, string> = {
   BOOKED: "Prenotata",
@@ -15,7 +16,7 @@ function cell(value: string | number | null | undefined): string {
 }
 
 function fmt(d: Date | null): string {
-  return d ? d.toLocaleString("it-IT", { dateStyle: "short", timeStyle: "short" }) : "";
+  return d ? formatDateTimeIt(d, { dateStyle: "short", timeStyle: "short" }) : "";
 }
 
 // GET /api/admin/events/[id]/export — CSV dei prenotati (apribile in Excel).
